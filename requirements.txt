@@ -4,3 +4,7 @@ numpy
 matplotlib
 opencv-python
 python-dotenv
+torch
+torchvision
+rake_nltk
+nltk
