@@ -1,0 +1,233 @@
+/* ------------------------------------------------------- */
+/* style.css                                               */
+/* Pastel, soothing design with no blue backgrounds.       */
+/* Uses Roboto for a clean, modern (non-sharp) font.       */
+/* ------------------------------------------------------- */
+
+/* GLOBAL STYLES */
+* {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Make the body a flex container */
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Let .container (main) expand to push the footer down */
+.container {
+  flex: 1;
+  /* Keep your existing container styles, 
+     like max-width, margin, etc. 
+     If you see layout issues, remove margin-bottom or reduce it. */
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  /* Subtle pastel background (white -> very light pink) */
+  background: linear-gradient(135deg, #72c5aa 0%, #85aa6c 100%);
+  color: #999797;
+}
+
+/* HEADER / NAVBAR */
+header {
+  /* Soft pastel gradient for the header background */
+  background: linear-gradient(135deg, #d6c5cc, #c2b0b600);
+  color: #444;
+  padding: 20px;
+  text-align: center;
+}
+header h2 {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* MAIN CONTAINER */
+.container {
+  max-width: 600px;
+  margin: 40px auto 60px auto;
+  padding: 30px;
+  background: #ffffff; /* White card background */
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* HEADING WITH A GRADIENT TEXT */
+h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 300;
+  /* Soft pink/purple gradient text */
+  background: linear-gradient(45deg, #b0c6ca, #a8c7d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.tagline {
+  text-align: center;
+  font-size: 0.95rem;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* FORM STYLES */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* CUSTOM FILE INPUT */
+.custom-file-input {
+  position: relative;
+  display: inline-block;
+  /* Pastel pink gradient for the "Browse" button */
+  background: linear-gradient(135deg, #d1cecf, #bfbbbd);
+  color: #1e1c1c;
+  padding: 8px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: filter 0.2s ease;
+  text-align: center;
+}
+.custom-file-input:hover {
+  filter: brightness(0.95);
+}
+/* Hide the default file input, but keep it clickable */
+.custom-file-input input[type="file"] {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
+/* IMAGE PREVIEW */
+.image-preview {
+  margin-top: 15px;
+  text-align: center;
+}
+#imagePreview {
+  display: none;
+  max-width: 100%;
+  max-height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* BUTTON STYLES */
+button.btn-submit {
+  /* Matching pastel pink gradient for the "Predict" button */
+  background: linear-gradient(135deg, #d1cecf, #bfbbbd);
+  color: #1e1c1c;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+button.btn-submit:hover {
+  filter: brightness(0.95);
+}
+
+/* RESULT BOX */
+#result {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-height: 50px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #333;
+  font-family: 'Roboto', sans-serif; /* Ensure a consistent, modern font */
+}
+
+/* RECOMMENDATION BOX */
+#recommendation {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa; /* very light pink background */
+  border: 1px solid #fcd2da;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* FOLLOW-UP PROMPT BOX */
+#followUp {
+  margin-top: 20px;
+  padding: 15px;
+  background:  #f8f9fa; /* light yellow background */
+  border: 1px solid #ffebb2;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* FOOTER */
+footer {
+  position: relative; /* Needed to place wave behind text */
+  text-align: center;
+  padding: 15px;
+  background-color: #f0f0f0;
+  color: #666;
+  font-size: 0.9rem;
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* WAVE STYLING */
+.wave-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12vh; /* Subtle wave at the bottom */
+  overflow: hidden;
+  z-index: -1; /* Sends wave behind footer text */
+}
+.wave-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+/* Pastel pink wave fill */
+.wave-svg path {
+  fill: #ffe0e4;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 480px) {
+  .container {
+    margin: 20px;
+    padding: 20px;
+  }
+  button.btn-submit {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .custom-file-input {
+    margin-bottom: 10px;
+  }
+}

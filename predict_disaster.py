@@ -1,16 +1,19 @@
+# predict_disaster.py
+
 import torch
 import torch.nn as nn
 from torchvision import models, transforms
 from PIL import Image
+import json
 
-# Define your model architecture (must match training)
 class MultiTaskModel(nn.Module):
-    def __init__(self, num_disaster_types):
+    def __init__(self, num_disaster_types=8):
         super(MultiTaskModel, self).__init__()
         # Use ResNet50 backbone
         self.backbone = models.resnet50(pretrained=True)
         num_features = self.backbone.fc.in_features
         self.backbone = nn.Sequential(*list(self.backbone.children())[:-1])
+
         # Task-specific heads with dropout
         self.disaster_classifier = nn.Sequential(
             nn.Dropout(0.5),
@@ -20,40 +23,56 @@ class MultiTaskModel(nn.Module):
             nn.Dropout(0.5),
             nn.Linear(num_features, 3)
         )
-        
+
     def forward(self, x):
         features = self.backbone(x).squeeze(-1).squeeze(-1)
         disaster_out = self.disaster_classifier(features)
         severity_out = self.severity_classifier(features)
         return disaster_out, severity_out
 
-# Initialize the model with the correct number of disaster types (e.g., 8)
-model = MultiTaskModel(num_disaster_types=8)
 
-# Load model weights directly from the best_model.pth file
-model_state_path = "best_model.pth"
-try:
-    model.load_state_dict(torch.load(model_state_path, map_location=torch.device("cpu")))
+def load_model(model_path="best_model.pth", num_disaster_types=8):
+    model = MultiTaskModel(num_disaster_types=num_disaster_types)
+    model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
     model.eval()
-    print("Model loaded successfully from best_model.pth")
-except Exception as e:
-    print(f"Error loading model: {e}")
+    return model
 
-# Example prediction code: loading and transforming an image
-image_path = r"C:\Documents\Haclytics2025_AssurantChallenge1\UserInputImagesTest\UserLeak.jpg"
-input_image = Image.open(image_path).convert("RGB")
-transform = transforms.Compose([
-    transforms.Resize((224, 224)),
-    transforms.ToTensor(),
-    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
-])
-input_tensor = transform(input_image).unsqueeze(0)  # Add batch dimension
 
-# Perform inference
-with torch.no_grad():
-    disaster_out, severity_out = model(input_tensor)
-    disaster_pred = disaster_out.argmax(dim=1).item()
-    severity_pred = severity_out.argmax(dim=1).item()
-    
-print(f"Predicted disaster type index: {disaster_pred}")
-print(f"Predicted severity index: {severity_pred}")
+def predict_disaster(image_path, model=None):
+    """Predict the disaster type and severity for a single image."""
+
+    # If no model provided, load it fresh (not optimal for multiple requests)
+    if model is None:
+        model = load_model()
+
+    # Transforms (must match training normalization, etc.)
+    transform = transforms.Compose([
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize([0.485, 0.456, 0.406],
+                             [0.229, 0.224, 0.225])
+    ])
+
+    # Load and preprocess the image
+    img = Image.open(image_path).convert("RGB")
+    input_tensor = transform(img).unsqueeze(0)  # add batch dimension
+
+    # Inference
+    with torch.no_grad():
+        disaster_out, severity_out = model(input_tensor)
+        disaster_idx = disaster_out.argmax(dim=1).item()
+        severity_idx = severity_out.argmax(dim=1).item()
+
+    # If you have a separate `disaster_types.txt`, load from there:
+    # For simplicity, we hardcode them here:
+    disaster_types = [
+        "earthquake", "fire", "flood", "leak",
+        "storm", "structural damage", "surface damage", "tornado"
+    ]
+    severity_levels = ["Low", "Medium", "High"]
+
+    return {
+    "predicted_disaster_type": disaster_types[disaster_idx],
+    "predicted_severity": severity_levels[severity_idx]
+}
+

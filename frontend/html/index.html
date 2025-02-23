@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Enterprise AI - Disaster Prediction</title>
+    <!-- Link to external CSS with correct path -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h2>Enterprise AI - Disaster Prediction</h2>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container">
+      <h1>Predict Damage Cause &amp; Severity</h1>
+      <p class="tagline">
+        Upload an image of the damage to analyze its cause and severity.
+      </p>
+
+      <!-- Upload Form -->
+      <form id="uploadForm">
+        <label for="imageInput">Select an image:</label>
+        <div class="custom-file-input">
+          Browse Image
+          <input type="file" id="imageInput" accept="image/*" required />
+        </div>
+
+        <!-- Small Preview -->
+        <div class="image-preview">
+          <img id="imagePreview" alt="Image Preview" />
+        </div>
+
+        <button type="submit" class="btn-submit">Predict</button>
+      </form>
+
+      <!-- Prediction Result Display -->
+      <div id="result"></div>
+      <!-- Recommendation box -->
+      <div id="recommendation"></div>
+      <!-- Follow-up prompt box -->
+      <div id="followUp"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; All rights reserved. Reach out to us at
+        <a href="mailto:advk2903@gmail.com">advk2903@gmail.com</a>
+      </p>
+      <!-- Wave Container -->
+      <div class="wave-container">
+        <svg
+          class="wave-svg"
+          viewBox="0 0 1440 320"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill="#c4f0c5"
+            fill-opacity="1"
+            d="M0,224L48,213.3C96,203,192,181,288,170.7C384,160,480,160,576,165.3C672,171,768,181,864,186.7C960,192,1056,192,1152,186.7C1248,181,1344,171,1392,165.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
+      </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="../js/app.js"></script>
+    <script>
+      /* If your JS is small, you can keep it inline. Otherwise, 
+         place it in a separate file in ../js and remove this. */
+
+      const uploadForm = document.getElementById("uploadForm");
+      const resultDiv = document.getElementById("result");
+      const recommendationDiv = document.getElementById("recommendation");
+      const followUpDiv = document.getElementById("followUp");
+      const imageInput = document.getElementById("imageInput");
+      const imagePreview = document.getElementById("imagePreview");
+
+      // Show a small preview of the uploaded image
+      imageInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          imagePreview.src = URL.createObjectURL(file);
+          imagePreview.style.display = "block";
+        } else {
+          imagePreview.style.display = "none";
+        }
+      });
+
+      // Handle form submission
+      uploadForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        // Clear old messages
+        resultDiv.textContent = "";
+        recommendationDiv.textContent = "";
+        followUpDiv.textContent = "";
+
+        // Get the file
+        const file = imageInput.files[0];
+        if (!file) {
+          alert("Please select an image first.");
+          return;
+        }
+
+        // Prepare form data
+        const formData = new FormData();
+        formData.append("file", file);
+
+        try {
+          // Make the POST request to your backend
+          const response = await fetch("http://127.0.0.1:8000/predict", {
+            method: "POST",
+            body: formData
+          });
+          const data = await response.json();
+
+          // Check for errors
+          if (data.error) {
+            resultDiv.textContent = "Error: " + data.error;
+          } else {
+            // Display the predicted info
+            resultDiv.textContent =
+              `Predicted: ${data.predicted_disaster_type}, ` +
+              `Severity: ${data.predicted_severity.toLowerCase()}`;
+
+            // Display recommendation
+            if (data.recommendation) {
+              recommendationDiv.textContent = data.recommendation;
+            }
+
+            // Display follow-up prompt
+            if (data.follow_up_prompt) {
+              followUpDiv.textContent = data.follow_up_prompt;
+            }
+          }
+        } catch (error) {
+          resultDiv.textContent = "An error occurred: " + error;
+        }
+      });
+    </script>
+  </body>
+</html>
