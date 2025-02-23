@@ -72,6 +72,7 @@ def predict_disaster(image_path, model=None):
     severity_levels = ["Low", "Medium", "High"]
 
     return {
-        "disaster_type": disaster_types[disaster_idx],
-        "severity": severity_levels[severity_idx]
-    }
+    "predicted_disaster_type": disaster_types[disaster_idx],
+    "predicted_severity": severity_levels[severity_idx]
+}
+
