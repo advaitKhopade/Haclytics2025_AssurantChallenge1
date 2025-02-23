@@ -128,14 +128,14 @@
               `Severity: ${data.predicted_severity.toLowerCase()}`;
 
             // Display recommendation
-            if (data.recommendation) {
-              recommendationDiv.textContent = data.recommendation;
-            }
+            // if (data.recommendation) {
+            //   recommendationDiv.textContent = data.recommendation;
+            // }
 
-            // Display follow-up prompt
-            if (data.follow_up_prompt) {
-              followUpDiv.textContent = data.follow_up_prompt;
-            }
+            // // Display follow-up prompt
+            // if (data.follow_up_prompt) {
+            //   followUpDiv.textContent = data.follow_up_prompt;
+            // }
           }
         } catch (error) {
           resultDiv.textContent = "An error occurred: " + error;
