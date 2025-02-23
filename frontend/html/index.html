@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Enterprise AI - Disaster Prediction</title>
+    <!-- Example Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <!-- Header / Navbar -->
+    <header>
+      <h2>Enterprise AI - Disaster Prediction</h2>
+    </header>
+
+    <!-- Main Content Container -->
+    <div class="container">
+      <h1>Predict Damage Cause &amp; Severity</h1>
+      <p class="tagline">
+        Upload an image of the damage to analyze its cause and severity.
+      </p>
+
+      <!-- Upload Form -->
+      <form id="uploadForm">
+        <label for="imageInput">Select an image:</label>
+        
+        <!-- Custom file input with a "Browse" button -->
+        <div class="custom-file-input">
+          Browse
+          <input type="file" id="imageInput" accept="image/*" required />
+        </div>
+
+        <button type="submit" class="btn-submit">Predict</button>
+      </form>
+
+      <!-- Prediction Result Display -->
+      <div id="result"></div>
+    </div>
+    
+    <!-- Footer (optional) -->
+    <footer>
+      <p>&copy; 2025 Your Company. All rights reserved.</p>
+    </footer>
+
+    <!-- Link to your JS file -->
+    <script src="../js/script.js"></script>
+  </body>
+</html>

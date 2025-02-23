@@ -29,3 +29,11 @@ tqdm>=4.62.0
 ipython>=7.16.0
 scikit-learn
 imblearn
+ 
+uvicorn 
+torch 
+torchvision 
+Pillow
+python-multipart
+fastapi>=0.68.0
+transformers
