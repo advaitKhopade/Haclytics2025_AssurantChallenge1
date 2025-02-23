@@ -1,0 +1,9 @@
+2025-02-22 23:44:32,343 - INFO - Using device: cpu
+2025-02-22 23:44:32,351 - INFO - Loaded 284 samples from disasterData/disaster_analysis_filename_based.csv
+2025-02-22 23:44:32,360 - ERROR - Error during training: The least populated class in y has only 1 member, which is too few. The minimum number of groups for any class cannot be less than 2.
+2025-02-23 00:00:59,539 - INFO - Using device: cpu
+2025-02-23 00:00:59,601 - INFO - Loaded 284 samples from disasterData/disaster_analysis_filename_based.csv
+2025-02-23 00:00:59,614 - ERROR - Error during training: The least populated class in y has only 1 member, which is too few. The minimum number of groups for any class cannot be less than 2.
+2025-02-23 00:32:36,883 - INFO - Using device: cpu
+2025-02-23 00:32:36,895 - INFO - Loaded 284 samples from disasterData/disaster_analysis_filename_based.csv
+2025-02-23 00:32:36,903 - ERROR - Error during training: The least populated class in y has only 1 member, which is too few. The minimum number of groups for any class cannot be less than 2.

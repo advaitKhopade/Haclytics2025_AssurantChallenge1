@@ -1,0 +1,8 @@
+earthquake
+fire
+flood
+leak
+storm
+structural damage
+surface damage
+tornado
