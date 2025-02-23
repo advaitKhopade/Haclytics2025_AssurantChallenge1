@@ -165,25 +165,25 @@ button.btn-submit:hover {
   font-family: 'Roboto', sans-serif; /* Ensure a consistent, modern font */
 }
 
-/* RECOMMENDATION BOX */
+/* RECOMMENDATION BOX
 #recommendation {
   margin-top: 20px;
   padding: 15px;
   background: #f8f9fa; /* very light pink background */
-  border: 1px solid #fcd2da;
+  /* border: 1px solid #fcd2da;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-}
+} */
 
 /* FOLLOW-UP PROMPT BOX */
-#followUp {
+/* #followUp {
   margin-top: 20px;
   padding: 15px;
-  background:  #f8f9fa; /* light yellow background */
+  background:  #f8f9fa; /* light yellow background 
   border: 1px solid #ffebb2;
   border-radius: 4px;
   font-family: 'Roboto', sans-serif;
-}
+} */
 
 /* FOOTER */
 footer {
